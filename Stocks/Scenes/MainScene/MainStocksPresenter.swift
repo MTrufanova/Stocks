@@ -17,7 +17,11 @@ class MainStocksPresenter {
 
 extension MainStocksPresenter: MainStocksPresentationLogic {
     func presentSuccess(data: [Stock]) {
-        self.viewController?.showData(data: data)
+        let stockModel = data.map { (model) -> StocksViewModel in
+            let cellModel = StocksViewModel(fullName: model.shortName, symbol: model.symbol, price: model.regularMarketPrice, changePrice: model.regularMarketChangePercent, changePercent: model.regularMarketChangePercent, isFavourite: false, regularMarketOpen: model.regularMarketOpen, regularMarketDayHigh: model.regularMarketDayHigh , regularMarketDayLow: model.regularMarketDayLow, regularMarketVolume: model.regularMarketVolume, trailingPE: model.trailingPE, marketCap: model.marketCap, fiftyTwoWeekHigh: model.fiftyTwoWeekHigh, fiftyTwoWeekLow: model.fiftyTwoWeekLow, averageDailyVolume3Month: model.averageDailyVolume3Month)
+            return cellModel
+        }
+        self.viewController?.showData(data: stockModel)
     }
     
     func failPresent() {

@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 class MainStockCell: UITableViewCell {
     
+    var buttonTap: () -> () = { }
+    
     let nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkGray
@@ -41,6 +43,12 @@ class MainStockCell: UITableViewCell {
         return label
     }()
     
+    let favouriteButton: UIButton = {
+       let button = UIButton()
+        button.setImage(UIImage(systemName: "star.fill"), for: .normal)
+        return button
+    }()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -49,6 +57,7 @@ class MainStockCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
+        favouriteButton.addTarget(self, action: #selector(didTapFavButton), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -58,15 +67,20 @@ class MainStockCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+      
     }
     
-    func setupCell(_ data: Stock)  {
-        nameLabel.text = data.shortName
+   @objc func didTapFavButton() {
+        buttonTap()
+    }
+    
+    func setupCell(_ data: StocksViewModel)  {
+        nameLabel.text = data.fullName
         symbolNameLabel.text = data.symbol
-        priceLabel.text = String(data.regularMarketPrice)
-        percentLabel.text = String(format: "%.2f", data.regularMarketChange) + "(" + String(format: "%.2f", data.regularMarketChangePercent) + "%)"
-        data.regularMarketChangePercent > 0 ? (percentLabel.textColor = .green) : (percentLabel.textColor = .red)
+        priceLabel.text = String(data.price)
+        percentLabel.text = String(format: "%.2f", data.changePrice) + "(" + String(format: "%.2f", data.changePercent) + "%)"
+        data.changePercent > 0 ? (percentLabel.textColor = .green) : (percentLabel.textColor = .red)
+        favouriteButton.tintColor = data.isFavourite ? #colorLiteral(red: 1, green: 0.7921568627, blue: 0.1098039216, alpha: 1) : #colorLiteral(red: 0.7294117647, green: 0.7294117647, blue: 0.7294117647, alpha: 1)
     }
     
     private func setupLayout() {
@@ -74,25 +88,27 @@ class MainStockCell: UITableViewCell {
         addSubview(symbolNameLabel)
         addSubview(priceLabel)
         addSubview(percentLabel)
+        contentView.addSubview(favouriteButton)
+        
         symbolNameLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(16)
-            make.width.equalTo(100)
             make.top.equalToSuperview().offset(14)
         }
         nameLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(16)
-            make.width.equalTo(150)
             make.top.equalTo(symbolNameLabel.snp.bottom)
         }
         priceLabel.snp.makeConstraints { (make) in
             make.trailing.equalToSuperview().offset(-12)
-            make.width.equalTo(100)
             make.top.equalToSuperview().offset(14)
         }
         percentLabel.snp.makeConstraints { (make) in
             make.trailing.equalToSuperview().offset(-12)
-            make.width.equalTo(100)
             make.top.equalTo(priceLabel.snp.bottom)
+        }
+        favouriteButton.snp.makeConstraints { (make) in
+            make.top.equalTo(symbolNameLabel.snp.top)
+            make.leading.equalTo(symbolNameLabel.snp.trailing).offset(8)
         }
     }
 
