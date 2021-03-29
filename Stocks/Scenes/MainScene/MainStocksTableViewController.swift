@@ -136,10 +136,10 @@ class MainStocksTableViewController: UITableViewController {
             var stock: StocksViewModel
             if isFiltering {
                  stock = filterStock[indexPath.row]
-                
+                self.filterStock[indexPath.row] = stock
             } else {
                  stock = stocks[indexPath.row]
-              
+                self.stocks[indexPath.row] = stock
             }
         cell.setupCell(stock)
             cell.buttonTap = {
@@ -206,11 +206,7 @@ extension MainStocksTableViewController: UISearchResultsUpdating {
     }
     
     private func filterContentSearchText(_ searchText: String) {
-        filterStock = stocks.filter { (stock: StocksViewModel) -> Bool in
-            return stock.fullName.lowercased().contains(searchText.lowercased())
-        }
-        filterStock += stocks.filter({ (stock: StocksViewModel) -> Bool in
-            return stock.symbol.lowercased().contains(searchText.lowercased())
+        filterStock = stocks.filter({ $0.fullName.lowercased().contains(searchText.lowercased()) || $0.symbol.lowercased().contains(searchText.lowercased())
         })
         tableView.reloadData()
     }
