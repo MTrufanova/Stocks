@@ -7,10 +7,16 @@
 
 import UIKit
 import SnapKit
+import SwiftChart
 
-final class DetailViewController: UIViewController {
-    
+protocol DetailDisplayLogic: class {
+    func swowData(data:[HistoryStocks])
+    func showError()
+}
+class DetailViewController: UIViewController {
+    var interactor: DetailBusinessLogic?
     var stock: StocksViewModel?
+    var historyData: HistoryStocks?
 
     //MARK: - UI
     let symbolLabel: UILabel = {
@@ -187,12 +193,24 @@ final class DetailViewController: UIViewController {
         return label
     }()
     
+    let chart = Chart(frame: CGRect.zero)
+  //  let data = [(x: historyData?.items, y: )]
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavTitle()
         setupData()
         setupLayout()
         view.backgroundColor = .white
+        interactor?.fetchHistory()
         
     }
 //MARK:-Methods
@@ -247,7 +265,7 @@ final class DetailViewController: UIViewController {
     view.addSubview(minYearBeidgeLabel)
     view.addSubview(midVolLabel)
     view.addSubview(midVolBeidgeLabel)
-    
+    view.addSubview(chart)
     priceLabel.snp.makeConstraints { (make) in
         make.centerX.equalToSuperview()
         make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
@@ -350,9 +368,27 @@ final class DetailViewController: UIViewController {
         make.leading.equalTo(maxYearLabel.snp.leading)
     }
     
+    chart.snp.makeConstraints { (make) in
+        make.top.equalTo(midVolLabel.snp.bottom).offset(8)
+        make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(8)
+        make.height.equalTo(250)
+    }
     
     
     }
     
 }
 
+extension DetailViewController: DetailDisplayLogic {
+    func swowData(data: [HistoryStocks]) {
+        historyData = data.first(where: { (stocker) -> Bool in
+            stocker.meta.symbol == stock?.symbol
+        })
+    }
+    
+    func showError() {
+        
+    }
+    
+    
+}

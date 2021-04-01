@@ -18,6 +18,10 @@
 		4676E771260B73D800EDAE26 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4676E770260B73D800EDAE26 /* APIClient.swift */; };
 		4676E776260B74A800EDAE26 /* StocksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4676E775260B74A800EDAE26 /* StocksModel.swift */; };
 		4676E77C260B7BF100EDAE26 /* MainStockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4676E77B260B7BF100EDAE26 /* MainStockCell.swift */; };
+		4686E0722614FB5E001905E0 /* HistoryStockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4686E0712614FB5E001905E0 /* HistoryStockModel.swift */; };
+		4686E0752615A215001905E0 /* DetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4686E0742615A215001905E0 /* DetailInteractor.swift */; };
+		4686E0782615A226001905E0 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4686E0772615A226001905E0 /* DetailPresenter.swift */; };
+		4686E07B2615A2F6001905E0 /* DetailVCFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4686E07A2615A2F6001905E0 /* DetailVCFactory.swift */; };
 		46FBB23C260BA5560042710E /* MainStocksInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46FBB23B260BA5560042710E /* MainStocksInteractor.swift */; };
 		46FBB23F260BA56D0042710E /* MainStocksPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46FBB23E260BA56D0042710E /* MainStocksPresenter.swift */; };
 		46FBB242260BACA00042710E /* MainStocksVCFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46FBB241260BACA00042710E /* MainStocksVCFactory.swift */; };
@@ -41,6 +45,10 @@
 		4676E770260B73D800EDAE26 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		4676E775260B74A800EDAE26 /* StocksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksModel.swift; sourceTree = "<group>"; };
 		4676E77B260B7BF100EDAE26 /* MainStockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStockCell.swift; sourceTree = "<group>"; };
+		4686E0712614FB5E001905E0 /* HistoryStockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStockModel.swift; sourceTree = "<group>"; };
+		4686E0742615A215001905E0 /* DetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractor.swift; sourceTree = "<group>"; };
+		4686E0772615A226001905E0 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
+		4686E07A2615A2F6001905E0 /* DetailVCFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVCFactory.swift; sourceTree = "<group>"; };
 		46FBB23B260BA5560042710E /* MainStocksInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStocksInteractor.swift; sourceTree = "<group>"; };
 		46FBB23E260BA56D0042710E /* MainStocksPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStocksPresenter.swift; sourceTree = "<group>"; };
 		46FBB241260BACA00042710E /* MainStocksVCFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStocksVCFactory.swift; sourceTree = "<group>"; };
@@ -118,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				4676E775260B74A800EDAE26 /* StocksModel.swift */,
+				4686E0712614FB5E001905E0 /* HistoryStockModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -165,6 +174,9 @@
 			isa = PBXGroup;
 			children = (
 				4676E75B260B72E700EDAE26 /* DetailStockViewController.swift */,
+				4686E0742615A215001905E0 /* DetailInteractor.swift */,
+				4686E0772615A226001905E0 /* DetailPresenter.swift */,
+				4686E07A2615A2F6001905E0 /* DetailVCFactory.swift */,
 			);
 			path = DetailStock;
 			sourceTree = "<group>";
@@ -294,12 +306,16 @@
 				4676E75C260B72E700EDAE26 /* DetailStockViewController.swift in Sources */,
 				46FBB24B260DB2A30042710E /* FavouriteTableViewController.swift in Sources */,
 				4676E76D260B734000EDAE26 /* MainStocksTableViewController.swift in Sources */,
+				4686E0722614FB5E001905E0 /* HistoryStockModel.swift in Sources */,
 				4676E758260B72E700EDAE26 /* AppDelegate.swift in Sources */,
 				4676E771260B73D800EDAE26 /* APIClient.swift in Sources */,
+				4686E07B2615A2F6001905E0 /* DetailVCFactory.swift in Sources */,
+				4686E0752615A215001905E0 /* DetailInteractor.swift in Sources */,
 				46FBB23C260BA5560042710E /* MainStocksInteractor.swift in Sources */,
 				46FBB242260BACA00042710E /* MainStocksVCFactory.swift in Sources */,
 				4676E77C260B7BF100EDAE26 /* MainStockCell.swift in Sources */,
 				4676E776260B74A800EDAE26 /* StocksModel.swift in Sources */,
+				4686E0782615A226001905E0 /* DetailPresenter.swift in Sources */,
 				46FBB24E260DC5AE0042710E /* TabBarController.swift in Sources */,
 				46FBB252260DD6710042710E /* FavouriteCell.swift in Sources */,
 				46FBB23F260BA56D0042710E /* MainStocksPresenter.swift in Sources */,

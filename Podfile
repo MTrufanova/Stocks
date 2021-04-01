@@ -8,5 +8,6 @@ target 'Stocks' do
   # Pods for Stocks
 
 	pod 'SnapKit'
+	pod 'SwiftChart'
 
 end
