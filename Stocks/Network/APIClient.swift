@@ -13,7 +13,7 @@ enum APIError: Error {
 
 protocol APIClient {
     func fetchData(onResult: @escaping (Result<StockResponse, Error>) -> Void)
-    func fetchHistoryStock(onResult: @escaping (Result<HistoryStock, Error>) -> Void)
+    func fetchHistoryStock(onResult: @escaping (Result<HistoryStocks, Error>) -> Void)
 }
 
 class APIClientclass: APIClient {
@@ -39,7 +39,7 @@ class APIClientclass: APIClient {
        
     }
     
-    func fetchHistoryStock(onResult: @escaping (Result<HistoryStock, Error>) -> Void) {
+    func fetchHistoryStock(onResult: @escaping (Result<HistoryStocks, Error>) -> Void) {
         let session = URLSession.shared
         guard let url = URL(string: "https://mboum.com/api/v1/hi/history/?symbol=F&interval=5m&diffandsplits=true&apikey=demo") else {return}
         var urlRequest = URLRequest(url: url)
@@ -50,8 +50,9 @@ class APIClientclass: APIClient {
                 return
             }
             do{
-                let historyResponse = try JSONDecoder().decode(HistoryStock.self, from: data)
+                let historyResponse = try JSONDecoder().decode(HistoryStocks.self, from: data)
                 onResult(.success(historyResponse))
+
             } catch (let err) {
                 print(err)
                 onResult(.failure(err))

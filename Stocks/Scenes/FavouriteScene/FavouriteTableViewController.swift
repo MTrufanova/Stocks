@@ -60,7 +60,7 @@ class FavouriteTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailVC = DetailViewController()
+        let detailVC = DetailVCFactory.getDetailVC()
         let stock = favouriteStocks[indexPath.row]
         detailVC.stock = stock
         navigationController?.pushViewController(detailVC, animated: true)

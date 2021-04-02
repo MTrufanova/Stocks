@@ -23,12 +23,11 @@ class DetailInteractor {
 
 extension DetailInteractor: DetailBusinessLogic {
     func fetchHistory() {
-        var history = [HistoryStocks]()
         api.fetchHistoryStock { (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let historyStock):
-                    history = historyStock
+                    self.presenter.presentSuccess(data: historyStock)
                 case .failure(_):
                     self.presenter.presentFail()
                 }

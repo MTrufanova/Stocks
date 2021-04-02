@@ -10,13 +10,13 @@ import SnapKit
 import SwiftChart
 
 protocol DetailDisplayLogic: class {
-    func swowData(data:[HistoryStocks])
+    func swowData(data:[ChartViewModel])
     func showError()
 }
 class DetailViewController: UIViewController {
     var interactor: DetailBusinessLogic?
     var stock: StocksViewModel?
-    var historyData: HistoryStocks?
+    var historyData = [ChartViewModel]()
 
     //MARK: - UI
     let symbolLabel: UILabel = {
@@ -194,14 +194,15 @@ class DetailViewController: UIViewController {
     }()
     
     let chart = Chart(frame: CGRect.zero)
-  //  let data = [(x: historyData?.items, y: )]
+    
+    
     
     init() {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required init?(coder aDecoder: NSCoder) {
+       super.init(coder: aDecoder)
     }
     
     override func viewDidLoad() {
@@ -209,11 +210,23 @@ class DetailViewController: UIViewController {
         setupNavTitle()
         setupData()
         setupLayout()
+        createChart()
         view.backgroundColor = .white
         interactor?.fetchHistory()
         
     }
 //MARK:-Methods
+    
+    func createChart() {
+        let data = historyData.map { (chart) in
+            chart.midRate
+        }
+        print(data)
+        let series = ChartSeries(data)
+        
+        chart.add(series)
+    }
+    
     func setupNavTitle()  {
         let stackView = UIStackView(arrangedSubviews: [symbolLabel, nameLabel])
         stackView.axis = .vertical
@@ -305,37 +318,31 @@ class DetailViewController: UIViewController {
     
     volBeidgeLabel.snp.makeConstraints { (make) in
         make.top.equalTo(openPriceBeidgeLabel.snp.top)
-       // make.leading.equalTo(openPriceLabel.snp.trailing).offset(20)
         make.leading.equalTo(mktCapBeidgeLabel.snp.leading)
     }
     
     peBeidgeLabel.snp.makeConstraints { (make) in
         make.top.equalTo(maxPriceBeidgeLabel.snp.top)
-       // make.leading.equalTo(volBeidgeLabel.snp.leading)
         make.leading.equalTo(mktCapBeidgeLabel.snp.leading)
     }
     
     mktCapBeidgeLabel.snp.makeConstraints { (make) in
         make.top.equalTo(minPriceBeidgeLabel.snp.top)
-        //make.leading.equalTo(volBeidgeLabel.snp.leading)
         make.trailing.equalTo(mktCapLabel.snp.leading).offset(-20)
     }
     
     volLabel.snp.makeConstraints { (make) in
         make.top.equalTo(volBeidgeLabel.snp.top)
-        //make.leading.equalTo(mktCapLabel.snp.leading)
         make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-16)
     }
     
     peLabel.snp.makeConstraints { (make) in
         make.top.equalTo(peBeidgeLabel.snp.top)
-       // make.leading.equalTo(mktCapLabel.snp.leading)
         make.trailing.equalTo(volLabel.snp.trailing)
     }
     
     mktCapLabel.snp.makeConstraints { (make) in
         make.top.equalTo(minPriceLabel.snp.top)
-      //  make.leading.equalTo(mktCapBeidgeLabel.snp.trailing).offset(16)
         make.trailing.equalTo(volLabel.snp.trailing)
     }
     
@@ -380,10 +387,10 @@ class DetailViewController: UIViewController {
 }
 
 extension DetailViewController: DetailDisplayLogic {
-    func swowData(data: [HistoryStocks]) {
-        historyData = data.first(where: { (stocker) -> Bool in
-            stocker.meta.symbol == stock?.symbol
-        })
+    func swowData(data: [ChartViewModel]) {
+        
+        historyData = data.filter { $0.symbol == stock?.symbol}
+       
     }
     
     func showError() {

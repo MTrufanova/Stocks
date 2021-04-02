@@ -148,6 +148,7 @@ class MainStocksTableViewController: UITableViewController {
                // self.filterStock[indexPath.row] = stock
                 let tabBar = self.tabBarController as! TabBarController
                 let navVC = tabBar.viewControllers?[1] as! UINavigationController
+                //MARK:-ERROR
                 let favVC = navVC.topViewController as! FavouriteTableViewController
                 favVC.favouriteStocks.append(stock)
                 cell.favouriteButton.tintColor = stock.isFavourite ? #colorLiteral(red: 1, green: 0.7921568627, blue: 0.1098039216, alpha: 1) : #colorLiteral(red: 0.7294117647, green: 0.7294117647, blue: 0.7294117647, alpha: 1)
@@ -164,7 +165,7 @@ class MainStocksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailVC = DetailViewController()
+        let detailVC = DetailVCFactory.getDetailVC()
         var stock: StocksViewModel
         if isFiltering {
              stock = filterStock[indexPath.row]
