@@ -207,23 +207,24 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        interactor?.fetchHistory()
+        view.backgroundColor = .white
         setupNavTitle()
         setupData()
         setupLayout()
         createChart()
-        view.backgroundColor = .white
-        interactor?.fetchHistory()
         
     }
+
 //MARK:-Methods
-    
+    //MARK:- данные не подгружаются в этой функции
     func createChart() {
+        
         let data = historyData.map { (chart) in
             chart.midRate
         }
-        print(data)
+       // print(data)
         let series = ChartSeries(data)
-        
         chart.add(series)
     }
     
@@ -390,7 +391,7 @@ extension DetailViewController: DetailDisplayLogic {
     func swowData(data: [ChartViewModel]) {
         
         historyData = data.filter { $0.symbol == stock?.symbol}
-       
+        //print(historyData)
     }
     
     func showError() {

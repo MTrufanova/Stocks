@@ -21,10 +21,8 @@ extension DetailPresenter: DetailPresentationLogic {
        let stock = data.items.map{ (key, value) in
             
         ChartViewModel(high: value.high, low: value.low, timestamp: key, symbol: data.meta.symbol)
-            
-            
+           
         }
-        
         self.detailVC?.swowData(data: stock)
     }
     

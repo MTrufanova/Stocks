@@ -7,13 +7,6 @@
 
 import Foundation
 
-protocol CharModel {
-    var symbol: String {get set}
-    var timestamp: String {get set}
-    var high: Double {get set}
-    var low: Double {get set}
-  //  var midRate: Double {get set}
-}
 
 struct Meta: Decodable {
     let symbol: String
