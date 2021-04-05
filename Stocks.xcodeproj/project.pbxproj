@@ -22,6 +22,7 @@
 		4686E0752615A215001905E0 /* DetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4686E0742615A215001905E0 /* DetailInteractor.swift */; };
 		4686E0782615A226001905E0 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4686E0772615A226001905E0 /* DetailPresenter.swift */; };
 		4686E07B2615A2F6001905E0 /* DetailVCFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4686E07A2615A2F6001905E0 /* DetailVCFactory.swift */; };
+		4686E094261733A7001905E0 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4686E093261733A7001905E0 /* DetailsView.swift */; };
 		46FBB23C260BA5560042710E /* MainStocksInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46FBB23B260BA5560042710E /* MainStocksInteractor.swift */; };
 		46FBB23F260BA56D0042710E /* MainStocksPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46FBB23E260BA56D0042710E /* MainStocksPresenter.swift */; };
 		46FBB242260BACA00042710E /* MainStocksVCFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46FBB241260BACA00042710E /* MainStocksVCFactory.swift */; };
@@ -49,6 +50,7 @@
 		4686E0742615A215001905E0 /* DetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractor.swift; sourceTree = "<group>"; };
 		4686E0772615A226001905E0 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
 		4686E07A2615A2F6001905E0 /* DetailVCFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVCFactory.swift; sourceTree = "<group>"; };
+		4686E093261733A7001905E0 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		46FBB23B260BA5560042710E /* MainStocksInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStocksInteractor.swift; sourceTree = "<group>"; };
 		46FBB23E260BA56D0042710E /* MainStocksPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStocksPresenter.swift; sourceTree = "<group>"; };
 		46FBB241260BACA00042710E /* MainStocksVCFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStocksVCFactory.swift; sourceTree = "<group>"; };
@@ -131,6 +133,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		4686E0962617394C001905E0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4686E093261733A7001905E0 /* DetailsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		46FBB244260CA61A0042710E /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +183,7 @@
 		46FBB25E261109820042710E /* DetailStock */ = {
 			isa = PBXGroup;
 			children = (
+				4686E0962617394C001905E0 /* Views */,
 				4676E75B260B72E700EDAE26 /* DetailStockViewController.swift */,
 				4686E0742615A215001905E0 /* DetailInteractor.swift */,
 				4686E0772615A226001905E0 /* DetailPresenter.swift */,
@@ -314,6 +325,7 @@
 				46FBB23C260BA5560042710E /* MainStocksInteractor.swift in Sources */,
 				46FBB242260BACA00042710E /* MainStocksVCFactory.swift in Sources */,
 				4676E77C260B7BF100EDAE26 /* MainStockCell.swift in Sources */,
+				4686E094261733A7001905E0 /* DetailsView.swift in Sources */,
 				4676E776260B74A800EDAE26 /* StocksModel.swift in Sources */,
 				4686E0782615A226001905E0 /* DetailPresenter.swift in Sources */,
 				46FBB24E260DC5AE0042710E /* TabBarController.swift in Sources */,
