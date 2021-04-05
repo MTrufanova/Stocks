@@ -79,11 +79,15 @@ class FavouriteTableViewController: UITableViewController {
         if editingStyle == .delete {
             favouriteStocks.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        }
+            let tabBar = self.tabBarController as! TabBarController
+            let navVC = tabBar.viewControllers?[0] as! UINavigationController
+            let main = navVC.topViewController as! MainStocksTableViewController
+            
+            
     }
     
 
-    
+    }
 
   
 

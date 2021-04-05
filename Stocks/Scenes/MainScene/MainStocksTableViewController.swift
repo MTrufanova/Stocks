@@ -144,14 +144,20 @@ class MainStocksTableViewController: UITableViewController {
         cell.setupCell(stock)
             cell.buttonTap = {
                 stock.isFavourite = !stock.isFavourite
-               // self.stocks[indexPath.row] = stock
-               // self.filterStock[indexPath.row] = stock
                 let tabBar = self.tabBarController as! TabBarController
                 let navVC = tabBar.viewControllers?[1] as! UINavigationController
-                //MARK:-ERROR
                 let favVC = navVC.topViewController as! FavouriteTableViewController
-                favVC.favouriteStocks.append(stock)
-                cell.favouriteButton.tintColor = stock.isFavourite ? #colorLiteral(red: 1, green: 0.7921568627, blue: 0.1098039216, alpha: 1) : #colorLiteral(red: 0.7294117647, green: 0.7294117647, blue: 0.7294117647, alpha: 1)
+                if let index = favVC.favouriteStocks.firstIndex(where: { (st) -> Bool in
+                    st.symbol == stock.symbol
+                }) {
+                    favVC.favouriteStocks.remove(at: index)
+                    favVC.tableView.reloadData()
+                } else {
+                    favVC.favouriteStocks.append(stock)
+                    favVC.tableView.reloadData()
+                }
+                
+                cell.favouriteButton.tintColor = stock.isFavourite ? #colorLiteral(red: 1, green: 0.7921568627, blue: 0.1098039216, alpha: 1) : #colorLiteral(red: 0.7294117647, green: 0.7294117647, blue: 0.7294117647, alpha: 1) 
             }
         cell.selectionStyle = .none
 

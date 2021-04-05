@@ -62,6 +62,7 @@ final class DetailView: UIView {
         second = createViews(firstItem: volLabel, secItem: peLabel, thirdItem: mktCapLabel, firstText: "Vol", secText: "P/E", thirdText: "Mkt Cap", place: detailView)
         third = createViews(firstItem: maxYearLabel, secItem: minYearLabel, thirdItem: midVolLabel, firstText: "52W H", secText: "52W L", thirdText: "Avg Vol", place: detailView)
         setupLayout()
+        detailView.backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {

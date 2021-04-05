@@ -35,7 +35,6 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         interactor?.fetchHistory()
-        view.backgroundColor = .white
         setupNavTitle()
         setupData()
        configureChart(with: historyData)

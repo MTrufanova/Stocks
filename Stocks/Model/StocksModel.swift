@@ -37,7 +37,14 @@ struct StocksViewModel: Codable {
     let price: Double
     let changePrice: Double
     let changePercent: Double
-    var isFavourite: Bool
+    var isFavourite: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "\(symbol)")
+        }
+        set {
+            return UserDefaults.standard.setValue(newValue, forKey: "\(symbol)")
+        }
+    }
     
     let regularMarketOpen: Double
     let regularMarketDayHigh: Double
