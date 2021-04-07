@@ -29,7 +29,7 @@ class DetailViewController: UIViewController {
     }
     
     required init?(coder aDecoder: NSCoder) {
-       super.init(coder: aDecoder)
+        super.init(coder: aDecoder)
     }
     
     override func viewDidLoad() {
@@ -37,18 +37,30 @@ class DetailViewController: UIViewController {
         interactor?.fetchHistory()
         setupNavTitle()
         setupData()
-       configureChart(with: historyData)
+        configureChart(with: historyData)
     }
-
-//MARK:-Methods
+    
+    //MARK:-Methods
     func configureChart(with viewModel: [ChartViewModel]) {
-        
-             let data = viewModel.map { (chart) in
-                 chart.midRate
-             }
-             let series = ChartSeries(data)
+        self.contentView.chart.delegate = self
+        let data = ChartHelper.convertValueToChartData(values: viewModel) ?? []
+        let series = ChartSeries(data: data)
+        let xLabels = ChartHelper.findLabels(data: data, axis: .X, numberPoint: 6)
+        self.contentView.chart.xLabels = xLabels
+        self.contentView.chart.xLabelsFormatter = {
+            let date = Date(timeIntervalSince1970: $1)
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first!)
+            dateFormatter.dateFormat = "MMM dd"
+            return dateFormatter.string(from: date)
+        }
+        self.contentView.chart.yLabelsFormatter = { "$" + String(Int($1)) }
+        series.area = true
+        self.contentView.chart.hideHighlightLineOnTouchEnd = true
         self.contentView.chart.add(series)
-     }
+    }
+    
+    
     
     func setupNavTitle()  {
         let stackView = UIStackView(arrangedSubviews: [self.contentView.symbolLabel, self.contentView.nameLabel])
@@ -77,7 +89,7 @@ class DetailViewController: UIViewController {
         self.contentView.maxYearLabel.text = String(stock?.fiftyTwoWeekHigh ?? 0)
         self.contentView.minYearLabel.text = String(stock?.fiftyTwoWeekLow ?? 0)
         self.contentView.midVolLabel.text = String(format: "%.2f",Double(stock!.averageDailyVolume3Month)/1000000) + "M"
-    
+        
     }
     
 }
@@ -86,13 +98,39 @@ extension DetailViewController: DetailDisplayLogic {
     func swowData(data: [ChartViewModel]) {
         historyData = data.filter { $0.symbol == stock?.symbol}
         configureChart(with: historyData)
-       
     }
     
     func showError() {
-        
+    }
+}
+
+
+extension DetailViewController: ChartDelegate {
+    func didTouchChart(_ chart: Chart, indexes: [Int?], x: Double, left: CGFloat) {
+        for (seriesIndex, dataIndex) in indexes.enumerated() {
+            if dataIndex != nil {
+                let value = chart.valueForSeries(seriesIndex, atIndex: dataIndex)
+                
+                if let touchedValue = value {
+                    self.contentView.chartInfoLabel.text = String(touchedValue)
+                    let date = Date(timeIntervalSince1970: x)
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first!)
+                    dateFormatter.dateFormat = "dd MMM yyyy, HH:mm"
+                   let labelText = dateFormatter.string(from: date)
+                    
+                    self.contentView.chartDateLabel.text = "\(labelText)"
+                }
+            }
+        }
     }
     
+    func didFinishTouchingChart(_ chart: Chart) {
+    }
+    
+    func didEndTouchingChart(_ chart: Chart) {
+    }
 }
+
 
 

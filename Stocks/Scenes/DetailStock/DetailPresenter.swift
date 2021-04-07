@@ -13,6 +13,12 @@ protocol DetailPresentationLogic {
 
 class DetailPresenter {
     weak var detailVC: DetailViewController?
+    
+    func convertToDate(unixTime: String) -> Date {
+        return Date(timeIntervalSince1970: Double(unixTime) ?? 0)
+        
+       
+    }
 }
 
 extension DetailPresenter: DetailPresentationLogic {
@@ -24,6 +30,7 @@ extension DetailPresenter: DetailPresentationLogic {
            
         }
         self.detailVC?.swowData(data: stock)
+        
     }
     
     func presentFail() {
@@ -32,3 +39,4 @@ extension DetailPresenter: DetailPresentationLogic {
     
     
 }
+//timestamp: convertToDate(unixTime: key)

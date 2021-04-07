@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftChart
+import SnapKit
 
 final class DetailView: UIView {
     
@@ -40,6 +41,24 @@ final class DetailView: UIView {
         label.textColor = .black
          return label
     }()
+    lazy var chartInfoLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 10)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.2
+        return label
+    }()
+    lazy var chartDateLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 10)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.2
+        return label
+    }()
     
     lazy var openPriceLabel = UILabel()
     lazy var maxPriceLabel = UILabel()
@@ -51,7 +70,6 @@ final class DetailView: UIView {
     lazy var minYearLabel = UILabel()
     lazy var midVolLabel = UILabel()
     let chart = Chart(frame: CGRect.zero)
-
     var first = UIView()
     var second = UIView()
     var third = UIView()
@@ -65,9 +83,12 @@ final class DetailView: UIView {
         detailView.backgroundColor = .white
     }
     
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
     
     private func setupLayout() {
         addSubview(detailView)
@@ -77,6 +98,8 @@ final class DetailView: UIView {
         detailView.addSubview(priceLabel)
         detailView.addSubview(changePriceLabel)
         detailView.addSubview(chart)
+        detailView.addSubview(chartInfoLabel)
+        detailView.addSubview(chartDateLabel)
         
         priceLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
@@ -106,6 +129,15 @@ final class DetailView: UIView {
              make.leading.trailing.equalTo(detailView.safeAreaLayoutGuide).inset(8)
              make.height.equalTo(250)
          }
+        chartInfoLabel.snp.makeConstraints { (make) in
+            make.bottom.equalTo(chart.snp.top).offset(15)
+            make.trailing.equalTo(detailView.safeAreaLayoutGuide).offset(-10)
+        }
+        chartDateLabel.snp.makeConstraints { (make) in
+            make.bottom.equalTo(chartInfoLabel.snp.top).offset(-25)
+            make.trailing.equalTo(detailView.safeAreaLayoutGuide).offset(-10)
+        }
+        
     }
     
 }

@@ -29,11 +29,6 @@ struct ChartViewModel {
     var symbol: String
     let midRate: Double
     var timestamp: String
-    //var high: Double
-    //var low: Double
-   // var midRate: Double {
-  //      return (high + low) / 2
-  //  }
 
     init(high: Double, low: Double, timestamp: String, symbol: String) {
         self.midRate = (high + low) / 2
@@ -42,13 +37,4 @@ struct ChartViewModel {
     }
 }
 
-/*func convert(stocks: HistoryStocks) -> [ChartViewModel] {
-    stocks.items.map { (key, value) in
-        .init(
-            high: value.high,
-            low: value.low,
-            timestamp: key,
-            symbol: stocks.meta?.symbol
-        )
-    }
-}*/
+

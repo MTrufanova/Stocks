@@ -15,20 +15,15 @@ struct Stock: Decodable {
     let regularMarketPrice: Double
     let regularMarketChange: Double
     let regularMarketChangePercent: Double
-    
     let regularMarketOpen: Double
     let regularMarketDayHigh: Double
     let regularMarketDayLow: Double
-    
     let regularMarketVolume: Int
     let trailingPE: Double?
     let marketCap: Int
-    
     let fiftyTwoWeekHigh: Double
     let fiftyTwoWeekLow: Double
     let averageDailyVolume3Month: Int
-    
-    
 }
 
 struct StocksViewModel: Codable {
@@ -45,15 +40,12 @@ struct StocksViewModel: Codable {
             return UserDefaults.standard.setValue(newValue, forKey: "\(symbol)")
         }
     }
-    
     let regularMarketOpen: Double
     let regularMarketDayHigh: Double
     let regularMarketDayLow: Double
-    
     let regularMarketVolume: Int
     let trailingPE: Double?
     let marketCap: Int
-    
     let fiftyTwoWeekHigh: Double
     let fiftyTwoWeekLow: Double
     let averageDailyVolume3Month: Int
