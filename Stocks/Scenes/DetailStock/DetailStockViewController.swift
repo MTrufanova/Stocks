@@ -37,7 +37,6 @@ class DetailViewController: UIViewController {
         interactor?.fetchHistory()
         setupNavTitle()
         setupData()
-        configureChart(with: historyData)
     }
     
     //MARK:-Methods
@@ -57,10 +56,11 @@ class DetailViewController: UIViewController {
         self.contentView.chart.yLabelsFormatter = { "$" + String(Int($1)) }
         series.area = true
         self.contentView.chart.hideHighlightLineOnTouchEnd = true
+        self.contentView.chart.yLabelsOnRightSide = true
+        self.contentView.chart.gridColor = .clear
+        self.contentView.chart.highlightLineColor = .black
         self.contentView.chart.add(series)
     }
-    
-    
     
     func setupNavTitle()  {
         let stackView = UIStackView(arrangedSubviews: [self.contentView.symbolLabel, self.contentView.nameLabel])
@@ -76,7 +76,7 @@ class DetailViewController: UIViewController {
         self.contentView.symbolLabel.text = stock?.symbol
         self.contentView.priceLabel.text = String(stock?.price ?? 0) + "$"
         self.contentView.changePriceLabel.text = String(format: "%.2f", stock?.changePrice ?? 0) + "$ " + "(" + String(format: "%.2f", stock?.changePercent ?? 0) + "%)"
-        self.contentView.changePriceLabel.textColor = stock!.changePrice > 0 ? .green : .red
+        self.contentView.changePriceLabel.textColor = stock!.changePrice > 0 ? #colorLiteral(red: 0.1411764706, green: 0.6980392157, blue: 0.3647058824, alpha: 1) : .red
         
         self.contentView.openPriceLabel.text = String(stock?.regularMarketOpen ?? 0)
         self.contentView.maxPriceLabel.text = String(stock?.regularMarketDayHigh ?? 0)
@@ -96,7 +96,7 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController: DetailDisplayLogic {
     func swowData(data: [ChartViewModel]) {
-        historyData = data.filter { $0.symbol == stock?.symbol}
+        historyData = data.filter { $0.symbol == stock?.symbol}.sorted(by: { $0.timestamp < $1.timestamp })
         configureChart(with: historyData)
     }
     
@@ -112,23 +112,31 @@ extension DetailViewController: ChartDelegate {
                 let value = chart.valueForSeries(seriesIndex, atIndex: dataIndex)
                 
                 if let touchedValue = value {
-                    self.contentView.chartInfoLabel.text = String(touchedValue)
+                    self.contentView.chartInfoLabel.text = String(touchedValue) + "$"
                     let date = Date(timeIntervalSince1970: x)
                     let dateFormatter = DateFormatter()
                     dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first!)
                     dateFormatter.dateFormat = "dd MMM yyyy, HH:mm"
                    let labelText = dateFormatter.string(from: date)
-                    
                     self.contentView.chartDateLabel.text = "\(labelText)"
                 }
+                self.contentView.changePriceLabel.isHidden = true
+                self.contentView.priceLabel.isHidden = true
+                self.contentView.chartInfoLabel.isHidden = false
+                self.contentView.chartDateLabel.isHidden = false
             }
         }
     }
     
     func didFinishTouchingChart(_ chart: Chart) {
+        
     }
     
     func didEndTouchingChart(_ chart: Chart) {
+        self.contentView.changePriceLabel.isHidden = false
+        self.contentView.priceLabel.isHidden = false
+        self.contentView.chartInfoLabel.isHidden = true
+        self.contentView.chartDateLabel.isHidden = true
     }
 }
 

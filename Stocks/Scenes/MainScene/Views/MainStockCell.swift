@@ -79,7 +79,7 @@ class MainStockCell: UITableViewCell {
         symbolNameLabel.text = data.symbol
         priceLabel.text = String(data.price)
         percentLabel.text = String(format: "%.2f", data.changePrice) + "(" + String(format: "%.2f", data.changePercent) + "%)"
-        data.changePercent > 0 ? (percentLabel.textColor = .green) : (percentLabel.textColor = .red)
+        data.changePercent > 0 ? (percentLabel.textColor = #colorLiteral(red: 0.1411764706, green: 0.6980392157, blue: 0.3647058824, alpha: 1)) : (percentLabel.textColor = .red)
         favouriteButton.tintColor = data.isFavourite ? #colorLiteral(red: 1, green: 0.7921568627, blue: 0.1098039216, alpha: 1) : #colorLiteral(red: 0.7294117647, green: 0.7294117647, blue: 0.7294117647, alpha: 1)
     }
     

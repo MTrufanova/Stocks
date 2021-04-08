@@ -12,6 +12,7 @@ import SnapKit
 final class DetailView: UIView {
     
     let detailView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    let financeScrollView = UIScrollView()
     lazy var symbolLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -45,7 +46,7 @@ final class DetailView: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .black
-        label.font = .systemFont(ofSize: 10)
+        label.font = .systemFont(ofSize: 20)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.2
         return label
@@ -53,8 +54,8 @@ final class DetailView: UIView {
     lazy var chartDateLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 10)
+        label.textColor = .gray
+        label.font = .systemFont(ofSize: 12)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.2
         return label
@@ -69,18 +70,22 @@ final class DetailView: UIView {
     lazy var maxYearLabel = UILabel()
     lazy var minYearLabel = UILabel()
     lazy var midVolLabel = UILabel()
-    let chart = Chart(frame: CGRect.zero)
+    let chart = Chart()
     var first = UIView()
     var second = UIView()
     var third = UIView()
+    var financeStack = UIStackView()
     
     init() {
         super.init(frame: CGRect.zero)
-        first = createViews(firstItem: openPriceLabel, secItem: maxPriceLabel, thirdItem: minPriceLabel, firstText: "Open", secText: "High", thirdText: "Low", place: detailView)
-        second = createViews(firstItem: volLabel, secItem: peLabel, thirdItem: mktCapLabel, firstText: "Vol", secText: "P/E", thirdText: "Mkt Cap", place: detailView)
-        third = createViews(firstItem: maxYearLabel, secItem: minYearLabel, thirdItem: midVolLabel, firstText: "52W H", secText: "52W L", thirdText: "Avg Vol", place: detailView)
-        setupLayout()
+        first = createViews(firstItem: openPriceLabel, secItem: maxPriceLabel, thirdItem: minPriceLabel, firstText: "Open", secText: "High", thirdText: "Low")
+        second = createViews(firstItem: volLabel, secItem: peLabel, thirdItem: mktCapLabel, firstText: "Vol", secText: "P/E", thirdText: "Mkt Cap")
+        third = createViews(firstItem: maxYearLabel, secItem: minYearLabel, thirdItem: midVolLabel, firstText: "52W H", secText: "52W L", thirdText: "Avg Vol")
+        financeStack = createFinanceStack(firstSubView: first, secondSubView: second, thirdSubView: third)
+    
         detailView.backgroundColor = .white
+        setupLayout()
+        setupScroll()
     }
     
     
@@ -88,18 +93,20 @@ final class DetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    private func setupScroll() {
+        financeScrollView.contentSize = CGSize(width: financeStack.frame.size.width, height: financeStack.frame.size.height)
+        financeScrollView.showsHorizontalScrollIndicator = false
+    }
     
     private func setupLayout() {
         addSubview(detailView)
-        detailView.addSubview(first)
-        detailView.addSubview(second)
-        detailView.addSubview(third)
         detailView.addSubview(priceLabel)
         detailView.addSubview(changePriceLabel)
         detailView.addSubview(chart)
         detailView.addSubview(chartInfoLabel)
         detailView.addSubview(chartDateLabel)
+        detailView.addSubview(financeScrollView)
+        financeScrollView.addSubview(financeStack)
         
         priceLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
@@ -111,39 +118,37 @@ final class DetailView: UIView {
             make.top.equalTo(priceLabel.snp.bottom).offset(8)
         }
         
-        first.snp.makeConstraints { (make) in
-            make.top.equalTo(changePriceLabel.snp.bottom).offset(20)
-            make.leading.equalToSuperview().offset(16)
-        }
-        second.snp.makeConstraints { (make) in
-            make.top.equalTo(first.snp.top)
-            make.trailing.equalToSuperview().offset(-16)
-        }
-        third.snp.makeConstraints { (make) in
-            make.top.equalTo(first.snp.bottom).offset(20)
-            make.leading.equalTo(first.snp.leading)
-        }
-        
          chart.snp.makeConstraints { (make) in
-             make.top.equalTo(third.snp.bottom).offset(10)
-             make.leading.trailing.equalTo(detailView.safeAreaLayoutGuide).inset(8)
+             make.top.equalTo(changePriceLabel.snp.bottom).offset(30)
+             make.leading.trailing.equalTo(detailView.safeAreaLayoutGuide).inset(16)
              make.height.equalTo(250)
          }
         chartInfoLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(chart.snp.top).offset(15)
-            make.trailing.equalTo(detailView.safeAreaLayoutGuide).offset(-10)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(chartDateLabel.snp.bottom).offset(8)
         }
         chartDateLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(chartInfoLabel.snp.top).offset(-25)
-            make.trailing.equalTo(detailView.safeAreaLayoutGuide).offset(-10)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(detailView.safeAreaLayoutGuide).offset(16)
+        }
+        
+        financeScrollView.snp.makeConstraints { (make) in
+            make.top.equalTo(chart.snp.bottom).offset(20)
+            make.leading.trailing.equalTo(detailView.safeAreaLayoutGuide).inset(10)
+        }
+        
+        financeStack.snp.makeConstraints { (make) in
+            make.top.equalTo(financeScrollView.snp.top)
+            make.leading.trailing.equalTo(financeScrollView.contentSize)
+            make.bottom.equalTo(financeScrollView.safeAreaLayoutGuide)
         }
         
     }
     
 }
 
-extension DetailView {
-    func createViews( firstItem: UILabel, secItem: UILabel, thirdItem: UILabel, firstText: String, secText: String, thirdText: String, place: UIView) -> UIView {
+extension UIView {
+    func createViews( firstItem: UILabel, secItem: UILabel, thirdItem: UILabel, firstText: String, secText: String, thirdText: String) -> UIView {
       let firstLabel = UILabel()
        firstLabel.textColor = .gray
        firstLabel.text = firstText
@@ -181,10 +186,33 @@ extension DetailView {
        stackViewItems.spacing = 8
        stackViewItems.frame.size = CGSize(width: max(firstItem.frame.size.width, secItem.frame.size.width, thirdItem.frame.size.width), height: firstItem.frame.size.height + secItem.frame.size.height + thirdItem.frame.size.height)
        
+        let viewMod = UIView()
+        viewMod.backgroundColor = .clear
+        viewMod.layer.borderWidth = 1
+        viewMod.layer.borderColor = UIColor.gray.cgColor
+        
        let stack = UIStackView(arrangedSubviews: [stackViewLabel, stackViewItems])
         stack.axis = .horizontal
         stack.spacing = 20
-        stack.frame.size = CGSize(width: stackViewLabel.frame.size.width + stackViewItems.frame.size.width, height: stackViewLabel.frame.size.height + stackViewItems.frame.size.height)
-        return stack
+        stack.frame.size = CGSize(width: (stackViewLabel.frame.size.width + stackViewItems.frame.size.width), height: stackViewLabel.frame.size.height)
+        viewMod.addSubview(stack)
+        stack.snp.makeConstraints { (make) in
+            make.centerX.equalTo(viewMod.snp.centerX)
+            make.centerY.equalTo(viewMod.snp.centerY)
+        }
+        viewMod.snp.makeConstraints { (make) in
+            make.width.equalTo(150)
+            make.height.equalTo(100)
+        }
+        return viewMod
    }
+    
+    func createFinanceStack(firstSubView: UIView, secondSubView: UIView, thirdSubView: UIView) -> UIStackView {
+        let financeStack = UIStackView(arrangedSubviews: [firstSubView, secondSubView, thirdSubView])
+        financeStack.axis = .horizontal
+        financeStack.spacing = 0
+        financeStack.frame.size = CGSize(width: firstSubView.frame.size.width + secondSubView.frame.size.width + thirdSubView.frame.size.width, height: firstSubView.frame.size.height)
+        return financeStack
+    }
+    
 }
