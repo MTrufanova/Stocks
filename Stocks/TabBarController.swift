@@ -16,9 +16,11 @@ class TabBarController: UITabBarController {
     
     func setupTabBar() {
         view.backgroundColor = .gray
+        self.tabBar.tintColor = .black
         let stocksVC = MainStocksFactory.getVC()
         let favouriteVC = FavouriteTableViewController()
-        viewControllers = [generateNavigationContoller(rootViewController: stocksVC, title: "Stocks", image: UIImage(named: "stock") ?? UIImage()), generateNavigationContoller(rootViewController: favouriteVC, title: "Favourite", image: UIImage(systemName: "star.fill") ?? UIImage())]
+        let newsVC = NewsFactory.getVC()
+        viewControllers = [generateNavigationContoller(rootViewController: stocksVC, title: "Stocks", image: UIImage(named: "stock") ?? UIImage()), generateNavigationContoller(rootViewController: favouriteVC, title: "Favourite", image: UIImage(systemName: "star.fill") ?? UIImage()), generateNavigationContoller(rootViewController: newsVC, title: "News", image: UIImage(systemName: "newspaper.fill") ?? UIImage())]
     }
     
     private func generateNavigationContoller(rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {

@@ -11,8 +11,8 @@ import SnapKit
 
 final class DetailView: UIView {
     
-    let detailView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-    let financeScrollView = UIScrollView()
+    lazy var detailView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    lazy var financeScrollView = UIScrollView()
     lazy var symbolLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -36,7 +36,7 @@ final class DetailView: UIView {
          return label
     }()
     
-    let changePriceLabel: UILabel = {
+    lazy var changePriceLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 12)
         label.textColor = .black
@@ -70,11 +70,11 @@ final class DetailView: UIView {
     lazy var maxYearLabel = UILabel()
     lazy var minYearLabel = UILabel()
     lazy var midVolLabel = UILabel()
-    let chart = Chart()
-    var first = UIView()
-    var second = UIView()
-    var third = UIView()
-    var financeStack = UIStackView()
+    lazy var chart = Chart()
+    lazy var first = UIView()
+    lazy var second = UIView()
+    lazy var third = UIView()
+    lazy var financeStack = UIStackView()
     
     init() {
         super.init(frame: CGRect.zero)
@@ -187,9 +187,8 @@ extension UIView {
        stackViewItems.frame.size = CGSize(width: max(firstItem.frame.size.width, secItem.frame.size.width, thirdItem.frame.size.width), height: firstItem.frame.size.height + secItem.frame.size.height + thirdItem.frame.size.height)
        
         let viewMod = UIView()
-        viewMod.backgroundColor = .clear
-        viewMod.layer.borderWidth = 1
-        viewMod.layer.borderColor = UIColor.gray.cgColor
+        viewMod.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+        viewMod.layer.cornerRadius = 5
         
        let stack = UIStackView(arrangedSubviews: [stackViewLabel, stackViewItems])
         stack.axis = .horizontal
@@ -210,7 +209,7 @@ extension UIView {
     func createFinanceStack(firstSubView: UIView, secondSubView: UIView, thirdSubView: UIView) -> UIStackView {
         let financeStack = UIStackView(arrangedSubviews: [firstSubView, secondSubView, thirdSubView])
         financeStack.axis = .horizontal
-        financeStack.spacing = 0
+        financeStack.spacing = 8
         financeStack.frame.size = CGSize(width: firstSubView.frame.size.width + secondSubView.frame.size.width + thirdSubView.frame.size.width, height: firstSubView.frame.size.height)
         return financeStack
     }

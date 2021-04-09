@@ -14,6 +14,7 @@ enum APIError: Error {
 protocol APIClient {
     func fetchData(onResult: @escaping (Result<StockResponse, Error>) -> Void)
     func fetchHistoryStock(onResult: @escaping (Result<HistoryStocks, Error>) -> Void)
+    func fetchNews(onResult: @escaping (Result<NewsResponse, Error>) -> Void)
 }
 
 class APIClientclass: APIClient {
@@ -58,6 +59,27 @@ class APIClientclass: APIClient {
                 onResult(.failure(err))
             }
         })
+        dataTask.resume()
+    }
+    
+    func fetchNews(onResult: @escaping (Result<NewsResponse, Error>) -> Void) {
+        let session = URLSession.shared
+        guard let url = URL(string: "https://mboum.com/api/v1/ne/news/?apikey=demo") else {return}
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        let dataTask = session.dataTask(with: urlRequest) { (data, response, error) in
+            guard let data = data else {
+                onResult(.failure(APIError.noData))
+                return
+            }
+            do {
+                let newsResponse = try JSONDecoder().decode(NewsResponse.self, from: data)
+                onResult(.success(newsResponse))
+            } catch (let error) {
+                print(error)
+                onResult(.failure(error))
+            }
+        }
         dataTask.resume()
     }
     
