@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		07A9A268F53D3CE3A0FB03B4 /* Pods_Stocks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 230D9A582AC6CE52629F8BA6 /* Pods_Stocks.framework */; };
+		465FD59C262209630084243D /* NewsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465FD59B262209630084243D /* NewsWebViewController.swift */; };
 		4676E758260B72E700EDAE26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4676E757260B72E700EDAE26 /* AppDelegate.swift */; };
 		4676E75A260B72E700EDAE26 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4676E759260B72E700EDAE26 /* SceneDelegate.swift */; };
 		4676E75C260B72E700EDAE26 /* DetailStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4676E75B260B72E700EDAE26 /* DetailStockViewController.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		230D9A582AC6CE52629F8BA6 /* Pods_Stocks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stocks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AEF2EF06A88D98B903C395D /* Pods-Stocks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stocks.release.xcconfig"; path = "Target Support Files/Pods-Stocks/Pods-Stocks.release.xcconfig"; sourceTree = "<group>"; };
+		465FD59B262209630084243D /* NewsWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWebViewController.swift; sourceTree = "<group>"; };
 		4676E754260B72E700EDAE26 /* Stocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4676E757260B72E700EDAE26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4676E759260B72E700EDAE26 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +97,14 @@
 				3AEF2EF06A88D98B903C395D /* Pods-Stocks.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		465FD59A262209240084243D /* NewsWebScene */ = {
+			isa = PBXGroup;
+			children = (
+				465FD59B262209630084243D /* NewsWebViewController.swift */,
+			);
+			path = NewsWebScene;
 			sourceTree = "<group>";
 		};
 		4676E74B260B72E700EDAE26 = {
@@ -173,6 +183,7 @@
 		46FBB244260CA61A0042710E /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				465FD59A262209240084243D /* NewsWebScene */,
 				4686E0D6261F97DC001905E0 /* NewsScene */,
 				46FBB25E261109820042710E /* DetailScene */,
 				46FBB249260DB2390042710E /* FavouriteScene */,
@@ -366,6 +377,7 @@
 				4686E0DC261F9E7E001905E0 /* NewsViewController.swift in Sources */,
 				4686E0C2261C86DB001905E0 /* Extension.swift in Sources */,
 				4686E0782615A226001905E0 /* DetailPresenter.swift in Sources */,
+				465FD59C262209630084243D /* NewsWebViewController.swift in Sources */,
 				46FBB24E260DC5AE0042710E /* TabBarController.swift in Sources */,
 				46FBB252260DD6710042710E /* FavouriteCell.swift in Sources */,
 				46FBB23F260BA56D0042710E /* MainStocksPresenter.swift in Sources */,

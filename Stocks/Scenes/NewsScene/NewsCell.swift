@@ -36,7 +36,13 @@ class NewsCell: UITableViewCell {
     
     func setupCell(_ data: NewsModel) {
         titleLabel.text = data.title
-        dateSourseLabel.text = data.pubDate + " - " + data.source
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        let date = dateFormatter.date(from: data.pubDate)
+        dateFormatter.dateFormat = "dd MMM yyyy, HH:mm"
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first!)
+        let dateToDisplay = dateFormatter.string(from: date ?? Date())
+        dateSourseLabel.text = dateToDisplay + " - " + data.source
     }
     
     private func setupLayout() {

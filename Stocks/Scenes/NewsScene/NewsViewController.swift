@@ -51,7 +51,7 @@ class NewsViewController: UIViewController {
     
 
 }
-
+//MARK:-TableViewDelegate & TableViewDataSource
 extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return newsItems.count
@@ -70,6 +70,14 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let newsWebVC = NewsWebViewController()
+        let news = newsItems[indexPath.row]
+        newsWebVC.newsWebItem = news
+        navigationItem.backButtonTitle = ""
+        navigationController?.pushViewController(newsWebVC, animated: true)
     }
     
 }
