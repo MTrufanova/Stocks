@@ -73,9 +73,13 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let newsWebVC = NewsWebViewController()
         let news = newsItems[indexPath.row]
-        newsWebVC.newsWebItem = news
+        guard let newsURL = URL(string: news.link) else {
+            return
+        }
+        let newsWebVC = NewsWebViewController(url: newsURL, title: news.source)
+       
+        //newsWebVC.newsWebItem = news
         navigationItem.backButtonTitle = ""
         navigationController?.pushViewController(newsWebVC, animated: true)
     }
