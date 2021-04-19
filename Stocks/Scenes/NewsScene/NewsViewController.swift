@@ -20,6 +20,8 @@ class NewsViewController: UIViewController {
         let table = UITableView(frame: .zero)
         table.backgroundColor = .white
         table.tableFooterView = UIView()
+        table.dataSource = self
+        table.delegate = self
         return table
     }()
 
@@ -36,13 +38,11 @@ class NewsViewController: UIViewController {
         setupTable()
         interactor?.fetchNews()
         navigationItem.title = "News"
-    
     }
     
    private func setupTable() {
         view.addSubview(tableView)
-        tableView.dataSource = self
-        tableView.delegate = self
+        
         tableView.register(NewsCell.self, forCellReuseIdentifier: cellID)
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()

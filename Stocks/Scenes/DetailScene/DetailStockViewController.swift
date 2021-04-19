@@ -23,6 +23,10 @@ class DetailViewController: UIViewController {
         self.view = contentView
     }
     
+    let menuBar: MenuBar = {
+        let mb = MenuBar()
+        return mb
+    }()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -37,6 +41,7 @@ class DetailViewController: UIViewController {
         interactor?.fetchHistory()
         setupNavTitle()
         setupData()
+        setupMenuBar()
     }
     
     //MARK:-Methods
@@ -62,7 +67,16 @@ class DetailViewController: UIViewController {
         self.contentView.chart.add(series)
     }
     
-    func setupNavTitle()  {
+    private func setupMenuBar()  {
+        navigationController?.navigationBar.addSubview(menuBar)
+        menuBar.snp.makeConstraints { (make) in
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(50)
+            make.bottom.equalToSuperview()
+        }
+    }
+    
+   private func setupNavTitle()  {
         let stackView = UIStackView(arrangedSubviews: [self.contentView.symbolLabel, self.contentView.nameLabel])
         stackView.axis = .vertical
         stackView.frame.size = CGSize(width: self.contentView.symbolLabel.frame.size.width + self.contentView.nameLabel.frame.size.width, height: max(self.contentView.symbolLabel.frame.size.height, self.contentView.nameLabel.frame.size.height))
@@ -98,6 +112,7 @@ extension DetailViewController: DetailDisplayLogic {
     func swowData(data: [ChartViewModel]) {
         historyData = data.filter { $0.symbol == stock?.symbol}.sorted(by: { $0.timestamp < $1.timestamp })
         configureChart(with: historyData)
+        
     }
     
     func showError() {

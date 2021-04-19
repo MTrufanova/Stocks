@@ -15,8 +15,8 @@ class MainStocksTableViewController: UITableViewController {
 
     let cellID = "cell"
     
-   private var stocks = [StocksViewModel]()
-    private var filterStock = [StocksViewModel]()
+    var stocks = [StocksViewModel]()
+     var filterStock = [StocksViewModel]()
     var interactor: MainStocksBusinessLogic?
     let searchController = UISearchController(searchResultsController: nil)
     let activityIndicator = UIActivityIndicatorView()

@@ -77,8 +77,17 @@ class FavouriteTableViewController: UITableViewController {
   
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let removeStock = favouriteStocks[indexPath.row]
             favouriteStocks.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            let tabBar = self.tabBarController as! TabBarController
+            let navVC = tabBar.viewControllers?[0] as! UINavigationController
+            let mainVC = navVC.topViewController as! MainStocksTableViewController
+            if let index = mainVC.stocks.firstIndex(where: { (st) -> Bool in
+                st.symbol == removeStock.symbol
+            }) {
+                mainVC.stocks[index].isFavourite = false
+            }
     }
     
 
