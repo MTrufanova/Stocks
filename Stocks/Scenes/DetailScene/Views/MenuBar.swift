@@ -21,7 +21,7 @@ class MenuBar: UIView {
         cv.delegate = self
         return cv
     }()
-    
+    var detailVC: DetailViewController?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -76,7 +76,6 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,
         UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.layoutIfNeeded()
         }, completion: nil)
-
         
     }
     

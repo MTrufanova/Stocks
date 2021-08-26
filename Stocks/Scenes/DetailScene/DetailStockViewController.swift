@@ -23,8 +23,9 @@ class DetailViewController: UIViewController {
         self.view = contentView
     }
     
-    let menuBar: MenuBar = {
+    lazy var menuBar: MenuBar = {
         let mb = MenuBar()
+        mb.detailVC = self
         return mb
     }()
     
@@ -41,9 +42,18 @@ class DetailViewController: UIViewController {
         interactor?.fetchHistory()
         setupNavTitle()
         setupData()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         setupMenuBar()
     }
-    
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        menuBar.isHidden = true
+    }
+
     //MARK:-Methods
     func configureChart(with viewModel: [ChartViewModel]) {
         self.contentView.chart.delegate = self
@@ -86,25 +96,27 @@ class DetailViewController: UIViewController {
     }
     
     func setupData() {
-        self.contentView.nameLabel.text = stock?.fullName
-        self.contentView.symbolLabel.text = stock?.symbol
-        self.contentView.priceLabel.text = String(stock?.price ?? 0) + "$"
-        self.contentView.changePriceLabel.text = String(format: "%.2f", stock?.changePrice ?? 0) + "$ " + "(" + String(format: "%.2f", stock?.changePercent ?? 0) + "%)"
-        self.contentView.changePriceLabel.textColor = stock!.changePrice > 0 ? #colorLiteral(red: 0.1411764706, green: 0.6980392157, blue: 0.3647058824, alpha: 1) : .red
+        guard let stock = stock else {return}
+        self.contentView.nameLabel.text = stock.fullName
+        self.contentView.symbolLabel.text = stock.symbol
+        self.contentView.priceLabel.text = String(stock.price) + "$"
+        self.contentView.changePriceLabel.text = String(format: "%.2f", stock.changePrice) + "$ " + "(" + String(format: "%.2f", stock.changePercent) + "%)"
+        self.contentView.changePriceLabel.textColor = stock.changePrice > 0 ? #colorLiteral(red: 0.1411764706, green: 0.6980392157, blue: 0.3647058824, alpha: 1) : .red
         
-        self.contentView.openPriceLabel.text = String(stock?.regularMarketOpen ?? 0)
-        self.contentView.maxPriceLabel.text = String(stock?.regularMarketDayHigh ?? 0)
-        self.contentView.minPriceLabel.text = String(stock?.regularMarketDayLow ?? 0)
+        self.contentView.openPriceLabel.text = String(stock.regularMarketOpen)
+        self.contentView.maxPriceLabel.text = String(stock.regularMarketDayHigh)
+        self.contentView.minPriceLabel.text = String(stock.regularMarketDayLow)
         
-        self.contentView.volLabel.text = String(format: "%.2f",Double(stock!.regularMarketVolume)/1000000) + "M"
-        self.contentView.peLabel.text = String(format: "%.2f",stock?.trailingPE ?? 0)
-        self.contentView.mktCapLabel.text = String(format: "%.2f",Double(stock!.marketCap)/1000000000) + "B"
+        self.contentView.volLabel.text = String(format: "%.2f",Double(stock.regularMarketVolume)/1000000) + "M"
+        self.contentView.peLabel.text = String(format: "%.2f",stock.trailingPE ?? 0)
+        self.contentView.mktCapLabel.text = String(format: "%.2f",Double(stock.marketCap)/1000000000) + "B"
         
-        self.contentView.maxYearLabel.text = String(stock?.fiftyTwoWeekHigh ?? 0)
-        self.contentView.minYearLabel.text = String(stock?.fiftyTwoWeekLow ?? 0)
-        self.contentView.midVolLabel.text = String(format: "%.2f",Double(stock!.averageDailyVolume3Month)/1000000) + "M"
+        self.contentView.maxYearLabel.text = String(stock.fiftyTwoWeekHigh)
+        self.contentView.minYearLabel.text = String(stock.fiftyTwoWeekLow)
+        self.contentView.midVolLabel.text = String(format: "%.2f",Double(stock.averageDailyVolume3Month)/1000000) + "M"
         
     }
+    
     
 }
 

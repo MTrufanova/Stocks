@@ -11,6 +11,8 @@
 		465FD59C262209630084243D /* NewsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465FD59B262209630084243D /* NewsWebViewController.swift */; };
 		465FD59F2626F3640084243D /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465FD59E2626F3640084243D /* MenuBar.swift */; };
 		465FD5A2262703CF0084243D /* MenuBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465FD5A1262703CF0084243D /* MenuBarCell.swift */; };
+		465FD5E0262DA0710084243D /* DetailNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465FD5DF262DA0710084243D /* DetailNewsCell.swift */; };
+		465FD5E5262DA2050084243D /* ChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465FD5E4262DA2050084243D /* ChartCell.swift */; };
 		4676E758260B72E700EDAE26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4676E757260B72E700EDAE26 /* AppDelegate.swift */; };
 		4676E75A260B72E700EDAE26 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4676E759260B72E700EDAE26 /* SceneDelegate.swift */; };
 		4676E75C260B72E700EDAE26 /* DetailStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4676E75B260B72E700EDAE26 /* DetailStockViewController.swift */; };
@@ -48,6 +50,8 @@
 		465FD59B262209630084243D /* NewsWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWebViewController.swift; sourceTree = "<group>"; };
 		465FD59E2626F3640084243D /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		465FD5A1262703CF0084243D /* MenuBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarCell.swift; sourceTree = "<group>"; };
+		465FD5DF262DA0710084243D /* DetailNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNewsCell.swift; sourceTree = "<group>"; };
+		465FD5E4262DA2050084243D /* ChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCell.swift; sourceTree = "<group>"; };
 		4676E754260B72E700EDAE26 /* Stocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4676E757260B72E700EDAE26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4676E759260B72E700EDAE26 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,9 +110,19 @@
 		465FD59A262209240084243D /* NewsWebScene */ = {
 			isa = PBXGroup;
 			children = (
+				465FD5DE262DA0370084243D /* DetailNewsScene */,
 				465FD59B262209630084243D /* NewsWebViewController.swift */,
 			);
 			path = NewsWebScene;
+			sourceTree = "<group>";
+		};
+		465FD5DE262DA0370084243D /* DetailNewsScene */ = {
+			isa = PBXGroup;
+			children = (
+				465FD5DF262DA0710084243D /* DetailNewsCell.swift */,
+				465FD5E4262DA2050084243D /* ChartCell.swift */,
+			);
+			path = DetailNewsScene;
 			sourceTree = "<group>";
 		};
 		4676E74B260B72E700EDAE26 = {
@@ -369,6 +383,7 @@
 				4686E0E2262041AD001905E0 /* NewsPresenter.swift in Sources */,
 				4676E76D260B734000EDAE26 /* MainStocksTableViewController.swift in Sources */,
 				4686E0722614FB5E001905E0 /* HistoryStockModel.swift in Sources */,
+				465FD5E5262DA2050084243D /* ChartCell.swift in Sources */,
 				4676E758260B72E700EDAE26 /* AppDelegate.swift in Sources */,
 				4676E771260B73D800EDAE26 /* APIClient.swift in Sources */,
 				4686E0CF261D8C5C001905E0 /* ChartHelper.swift in Sources */,
@@ -385,6 +400,7 @@
 				4686E0C2261C86DB001905E0 /* Extension.swift in Sources */,
 				4686E0782615A226001905E0 /* DetailPresenter.swift in Sources */,
 				465FD59C262209630084243D /* NewsWebViewController.swift in Sources */,
+				465FD5E0262DA0710084243D /* DetailNewsCell.swift in Sources */,
 				46FBB24E260DC5AE0042710E /* TabBarController.swift in Sources */,
 				46FBB252260DD6710042710E /* FavouriteCell.swift in Sources */,
 				46FBB23F260BA56D0042710E /* MainStocksPresenter.swift in Sources */,
